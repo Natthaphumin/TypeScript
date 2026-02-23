@@ -22,3 +22,35 @@ if (typeof unknownValue === "string") {
 } else if (typeof unknownValue === "boolean") {
   console.log(`Unknown value as boolean: ${unknownValue}`);
 }
+
+function getSalaryFromExternalService(empId: number): unknown {
+  return JSON.parse("5");
+}
+
+let salaryData = getSalaryFromExternalService(123);
+
+console.log(salaryData);
+
+if (typeof salaryData === "number") {
+  // type narrowing
+  salaryData++;
+}
+
+if (typeof salaryData === "string") {
+  // type narrowing
+  salaryData.includes("$");
+}
+
+if (typeof salaryData === "string" || typeof salaryData === "number") {
+  // type narrowing
+  salaryData.valueOf();
+}
+
+if (
+  salaryData &&
+  typeof salaryData === "object" &&
+  "history" in salaryData &&
+  Array.isArray(salaryData.history)
+) {
+  salaryData.history.push(12000);
+}
